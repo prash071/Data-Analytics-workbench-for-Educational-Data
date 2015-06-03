@@ -1,0 +1,263 @@
+<html >
+<head>
+	<title>Data Visualisation</title>
+<style type="text/css">
+a { font-weight: bold; }
+a:link, a:visited { text-decoration: none; color: #333; }	
+a:hover, a:active { text-decoration: underline; color: #F36; }
+{% load staticfiles %}
+body { background: #464939 url({% static 'images/pagebg.gif' %}) repeat-y top center; font: 69%/1.5em 'Lucida Sans Unicode', 'Lucida Grande', verdana, arial, sans-serif; color: #333; margin: 0; padding: 0; text-align: center; }
+
+p { margin: 0 0 10px; }
+
+#container { position: relative; background: transparent; margin: 0 auto; text-align: justify; width: 600px; }
+#container h3 { font-size: 110%; font-weight: bold; margin-bottom: 10px; margin-top: 30px; }
+
+#pageHeader {
+	margin: 0;
+	padding-top: 15px;
+	height: 300px;
+	background: #FFF url({% static 'images/Data-Visualisation.jpg' %}) no-repeat top;
+	border-bottom: 15px solid #FFF;
+	text-align: right;
+}
+#pageHeader h1 {
+	margin: 0;
+	padding: 10px;
+	color: #000000;
+}
+#pageHeader h3
+{
+	margin: 0;
+	padding: 05px;
+	color: #667C26;
+}
+ 
+
+#preamble {
+	position: absolute;
+	top: 330px;
+	right: 0;
+	z-index: 2;
+	width: 190px;
+	font-size: 90%;
+	color: #FFF;
+	text-align: left;
+	border-bottom: 15px solid #FFF;
+	line-height: 14px;
+	padding-top: 10px;
+}
+#preamble p { margin: 0 17px 15px 15px; }
+#preamble h3 { height: 30px; margin: 0; padding: 0; }
+#preamble h3 span {
+	margin: 0;
+	padding: 10px;
+}
+
+#supportingText {
+	margin: 0 205px 0 0;
+	background-color: #DFE3C6;
+	padding-top: 20px;
+}
+#supportingText p { margin: 0 20px 15px 20px; }
+
+#explanation h3 { height: 30px; margin: 0; padding: 0; }
+#explanation h3 span { margin: 0; padding: 20px; }
+
+
+#participation h3 { height: 37px; margin: 0; padding: 0; }
+#participation h3 span { margin: 0; padding: 20px; }
+
+#benefits h3 { height: 37px; margin: 0; padding: 0; }
+#benefits h3 span { margin: 0; padding: 20px; }
+
+#footer {
+	border-top: 15px solid #FFF;
+	padding: 10px 15px 10px 10px;
+	text-align: right;
+	margin: 0;
+	background-color: #DFE3C6;
+}
+#footer a { margin-left: 20px; color: #CCC; }
+#footer a:hover, #footer a:active { color: #FFF; }
+
+#linkList { background: transparent; padding: 0; margin: 0; width: 190px; position: absolute; top: 350px; right: 0; font-size: 90%; }
+
+#linkList ul { margin: 0; padding: 0; list-style: none; }
+#lselect ul ul, #larchives ul, #lresources ul { margin-top: -10px; margin-bottom: -10px; display: none;}
+#linkList li { display: block; padding: 8px 0 7px 12px; margin: 0; line-height: 160%; border-bottom: 1px solid #FFF; }
+
+#linkList li a { color: #FFFFFF; font: bold 110% arial, helvectica, sans-serif; }
+#linkList li:hover {
+	background-color: #7E8459;
+	background-position: 0 0;
+}
+#linkList li:hover a { color: #FFF; }
+
+#lselect { color: #377774; }
+#lselect li:hover ul{ color: #656565; display:block;position: relative;}
+#lselect li a { text-transform: uppercase; font: bold 110% arial, helvectica, sans-serif; display: block; margin: 0; padding: 0; }
+#lselect li:hover a { color: #FFF; }
+#lselect li a.c:link, #lselect li a.c:visited {	display: inline; font-weight: normal; text-transform: none; font-size: 100%; color: #377774; }
+#lselect li:hover a.c { color: #FFB9CB; }
+
+h3.archives { height: 30px; margin: 0; padding: 0; }
+h3.archives span {
+	margin: 0;
+	padding: 10px;
+	color: #FFFFFF;
+}
+
+</style>
+<script type="text/javascript">
+
+function option() {
+    if (document.getElementById('amazon_server').checked) {
+        document.getElementById('ifYes').style.display = 'none';
+    } else {
+        document.getElementById('ifYes').style.display = 'block';
+    }
+}
+</script>
+</head>
+<body>
+
+<div id="container">
+	<div id="intro">
+		<div id="pageHeader">
+			<h1><span>Data Visualisation</span></h1>
+			<h3><span>place to create interactive visualisation graphs</span></h3>
+		</div>
+	</div>
+
+	<div id="supportingText">
+			<div id="explanation">
+			<h3><span>What is Data Visualisation?</span></h3>
+			<p class="p1">
+			<span>
+Data Visualization is more than a method of computing! It is a process of transforming information into a visual form enabling the viewer to observe, browse, make sense, and understand the information. It typically employs computers to process the information and computer screens to view it using methods of interactive graphics, imaging, and visual design. It relies on the visual system to perceive and process the information.Good data visualisation can help users explore and understand the patterns and trends in data, and also communicate that understanding to others to help them make robust decisions based on the data being presented. 
+			</span>
+			</p>
+			</div>
+			<!--<div id="explanation">-->
+			<h3><span>Let's start visualisation!</span></h3>
+
+			<form action='/automater/r/' method="get">{% csrf_token %}
+        			<fieldset><legend>Please specify all the fields</legend>
+				<p>
+				<label>enter the path to directory</label><input type="text" name="path" />
+				</p>
+     				<p>
+     				<p><label>
+        			<span>Enter server data type</span>
+    				</label>  
+				<div id="opt">	
+    				<input type="radio" name="server" id="amazon_server" value="amazonserver" onclick="javascript:option();">amazon server
+    				<input type="radio" name="server" id="local server" value="local" onclick="javascript:option();">local server
+				</div>
+    				</p>
+				<div id="ifYes" style="display:none">
+				<label>username:    </label><input type="text" name="username" size="8"/><br> 	
+				<label>password:    </label><input type="password" name="password"size="8"/>    				
+				</div>
+				<input type="radio" name="mode" id="upload" value="upload">upload
+    				<input type="radio" name="mode" id="update" value="update">update<br><br>
+				
+       				<span>&nbsp;</span> 
+       				<input type="submit" name="submit" value="Submit" />
+        			<span>&nbsp;</span> 
+        			<input type="button" name="reset" value="Reset" /> 
+   				</p>  
+    				</fieldset>
+			</form>
+			<!--</div>-->
+
+			<div id="footer">
+			Copyright  2014 IITB
+			</div>
+
+	<!--</div>-->
+
+	{% load staticfiles %}
+	<div id="linkList">
+		<div id="linkList2">
+			<div id="lselect">
+				<ul>
+					<li><a href="">Home</a>
+						<ul>
+            				<li>
+                				<img src="" alt="">
+            				</li>       
+        				</ul>
+        			</li>
+					<li><a href="#img1">Area, Bar and Pie Charts</a>
+						<ul>
+            				<li>
+                				<img src="{% static 'images/barchart.jpg' %}" alt="Area, Bar and Pie Chart">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img2">Sunburst</a>
+						<ul>
+            				<li>
+                				<img src="{% static 'images/sunburst.jpg' %}" alt="Sunburst">
+            				</li>       
+        				</ul>
+        			</li>
+					<li><a href="#img3">Icicle</a>
+						<ul>
+            				<li>
+                				<img src="{% static 'images/icicle.jpg' %}" alt="Icicle">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img4">ForceDirected</a>
+						<ul>
+            				<li>
+                				<img src="images/force-directed.jpg" alt="ForceDirected">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img5">TreeMap</a>
+						<ul>
+            				<li>
+                				<img src="images/tm.jpg" alt="TreeMap">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img6">SpaceTree</a>
+						<ul>
+            				<li>
+                				<img src="{% static 'images/spacetree.jpg' %}" alt="SpaceTree">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img7">RGraph</a>
+						<ul>
+            				<li>
+                				<img src="images/rgraph.jpg" alt="RGraph">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img8">HyperTree</a>
+						<ul>
+            				<li>
+                				<img src="{% static 'images/hypertree.jpg' %}" alt="HyperTree">
+            				</li>       
+        				</ul>
+					</li>
+					<li><a href="#img9">Advanced/Other</a>
+						<ul>
+            				<li>
+                				<img src="{% static 'images/other.jpg' %}" alt="other">
+            				</li>       
+        				</ul>
+					</li>
+
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

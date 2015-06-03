@@ -1,0 +1,57 @@
+{
+	"JSChart" : {
+		"datasets" : [
+			{
+				"type" : "bar",
+				"data" : [
+					{
+						"unit" : "2005",
+						"value" : "2"
+					},
+					{
+						"unit" : "2006",
+						"value" : "1"
+					},
+					{
+						"unit" : "2007",
+						"value" : "3"
+					},
+					{
+						"unit" : "2008",
+						"value" : "6"
+					}
+				]
+			}
+		],
+		"optionset" : [
+			{
+				"set" : "setBarColor",
+				"value" : "'#42aBdB'"
+			},
+			{
+				"set" : "setBarOpacity",
+				"value" : "0.8"
+			},
+			{
+				"set" : "setBarBorderColor",
+				"value" : "'#D9EDF7'"
+			},
+			{
+				"set" : "setBarValues",
+				"value" : "false"
+			},
+			{
+				"set" : "setTitleColor",
+				"value" : "'#8C8383'"
+			},
+			{
+				"set" : "setAxisColor",
+				"value" : "'#777E81'"
+			},
+			{
+				"set" : "setAxisValuesColor",
+				"value" : "'#777E81'"
+			}
+		]
+	}
+}

@@ -1,0 +1,19 @@
+
+<div id="chartContainer">
+{% load staticfiles %}
+  <script src="{% static 'js/d3.min.js' %}"></script>
+  <script src="{% static 'js/dimple.min.js' %}"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 1000, 700);
+    d3.tsv("{% static 'videoviews.tsv' %}", function (data) {
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(375, 30, 480, 330)
+      myChart.addMeasureAxis("x", "views");
+      var y = myChart.addCategoryAxis("y", "id");
+      y.addOrderRule("id");
+      myChart.addSeries(null, dimple.plot.bar);
+      myChart.draw();
+    });
+  </script>
+</div>
+fewfewfrew

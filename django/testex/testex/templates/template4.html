@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<title>Highcharts Example</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+						
+	</head>
+	<body>
+		<div id="container" style="width: 800px; height: 400px; margin: 0 auto">
+		</div>
+		<script type="text/javascript">
+		{% autoescape off %}
+	$(document).ready(function() {
+			var options = {
+				chart: {
+					renderTo: 'container',
+					type: 'column'
+				},
+				title: {
+					text: 'DATA'
+				},
+				xAxis: {
+					categories: []
+				},
+				yAxis: {
+					title: {
+						text: 'Units'
+					}
+				},
+				series: []
+			};
+			
+			{% load staticfiles %}
+			$.get('{% static "data.csv" %}', function(data) {
+				// Split the lines
+				var lines = data.split('\n');
+				$.each(lines, function(lineNo, line) {
+					var items = line.split(',');
+					
+					// header line containes categories
+					if (lineNo == 0) {
+						$.each(items, function(itemNo, item) {
+							if (itemNo > 0) options.xAxis.categories.push(item);
+						});
+					}
+					
+					// the rest of the lines contain data with their name in the first position
+					else {
+						var series = { 
+							data: []
+						};
+						$.each(items, function(itemNo, item) {
+							if (itemNo == 0) {
+								series.name = item;
+							} else {
+								series.data.push(parseFloat(item));
+							}
+						});
+						
+						options.series.push(series);
+
+					}
+					
+				});
+				
+				var chart = new Highcharts.Chart(options);
+			});
+			
+			
+		});		{% endautoescape %}
+		</script>
+	</body>
+</html>
+

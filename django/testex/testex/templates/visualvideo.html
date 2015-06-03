@@ -1,0 +1,439 @@
+<!doctype html>
+<html>
+	<head>
+    	<title>EDX INTERACTION</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" charset="utf-8">
+	{% load staticfiles %}
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+        
+    </head>
+    
+    <body>
+        <!-- JUMBOTRON -->
+<div id="head1" style="width:68%;padding-top:10px;float:left;height:100%">
+            <center>
+             <div class="jumbotron" style="margin-top:5px;display:none" id="resetd1"> 
+                      <br>
+                      <br>
+                      <img src="{% static 'images/visualization.jpg' %}" class="img-responsive">
+             </div>
+             <div style="margin-top:10px;margin-left:30px" name="htm" id="htm">
+                      </center>
+                        {% include temp %}
+                      </center>
+             </div>
+             <div style="margin-top:10px;display:none" name="studente" id="studente">
+                      </center>
+                       imgstudent
+                      </center>
+             </div>
+             <div style="margin-top:10px;display:none" name="probleme" id="probleme">
+                      </center>
+                        imgproblem
+                      </center>
+             </div>
+             <div style="margin-top:10px;display:none" name="video1e" id="video1e">
+                      </center>
+                        imgvideo1
+                      </center>
+             </div>
+             <div style="margin-top:10px;display:none" name="videoe" id="videoe">
+                      </center>
+                       imgvideo
+                      </center>
+             </div>    
+             <div style="margin-top:10px;display:none" name="enrolle" id="enrolle">
+                      </center>
+                        imgenroll
+                      </center>
+             </div>               
+            </div>
+            <div style="height:100%" class="jumbotron;float:right">
+              <div class="jumbotron" style="width:31%;padding-top:50px;float:right;padding:10px;height:100%;background-image: url('{% static "images/backd.jpg" %}');background-size: cover">
+               <form role="form" method="post" action="/visual/check">
+                    {% csrf_token %}
+                <center>
+                    <div id="resetd" style="display:none;margin-top:200px;height:500px">
+                        <center>
+                        <h3>Welcome!!!Data Visualization</h3>
+                        </center>
+                    </div>    
+                    <div id="studentd" style="display:none;margin-top:100px;height:500px">
+                            <center>
+                                <h3 style="font-family: 'Times New Roman', Times, serif;font-size: 30px;font-weight:bold;"> Choose the Fields </h3>
+                                <label >Year</label>
+                                <select class="form-control" id="studentyear" name="studentyear">
+                                    {% for x in year %}
+                                        <option value={{ forloop.counter0 }}>{{x}}</option>
+                                    {% endfor %}  
+                                </select>
+                                <br>
+                                <select class="form-control" id="studentcourse" style="display:none">
+                                    {% for y in course.0 %}
+                                       <option>{{y }}</option>
+                                    {% endfor %}                                
+                                </select>
+                                <label>Course </label>
+                                <select class="form-control" id="studentcourse" name="studentcourse">
+
+                                   {% for a,b in course %}
+                                   <option value={{a}}>{{ a }}</option>
+                                   {% endfor %}
+                                </select>
+
+                                <script>
+                                    $("#studentyear").change(function() { 
+                                       if($(this).data('options') == undefined){
+                                    /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                                            $(this).data('options',$('#query option').clone());
+                                        } 
+                                        var id = $(this).val();
+                                        var options = $(this).data('options').filter('[value=' + id + ']');
+                                        $('#studentcourse').html(options);
+                                    });
+                                </script>
+                                 <br>
+                                <label >Choose Query</label>
+                                <select name="studentq" class="form-control">
+                                    {% for x in studq %}
+                                       <option value={{forloop.counter0}}>{{x}}</option>
+                                    {% endfor %}  
+                                </select>
+                                <br>
+                               <button type="submit" class="btn btn-default" style="background: #E48F8F;color:#fff" name="studentb">Visualize</button>
+                            </center>                           
+                    </div>
+                    <div id="enrolld" style="display:none;margin-top:100px;height:500px">
+                        <center>
+                            <h3 style="font-family: 'Times New Roman', Times, serif;font-size: 30px;font-weight:bold;"> Choose the Fields </h3>
+                             <label >Year</label>
+                             <select class="form-control" id="enrollyear">
+                                 {% for x in year %}
+                                    <option>{{x}}</option>
+                                  {% endfor %}  
+                              </select>
+                              <br>
+                                <label>Course </label>  
+                                <select class="form-control" id="enrollcourse" name="enrollcourse">
+                                    {% for x,y in course %}
+                                    <option value={{x}}>{{x }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            <script>
+                                $("#enrollyear").change(function() { 
+                                  if($(this).data('options') == undefined){
+                                /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                                   $(this).data('options',$('#query option').clone());
+                                   } 
+                                    var id = $(this).val();
+                                    var options = $(this).data('options').filter('[value=' + id + ']');
+                                    $('#enrollcourse').html(options);
+                                });
+                            </script>
+                            <br>    
+                                    
+                              <label >Choose Query</label>
+                               <select name="enrollq" class="form-control">
+                                    {% for x in enrollq %}
+                                        <option value={{forloop.counter0}}>{{x}}</option>
+                                    {% endfor %}  
+                               </select><br>
+                               <button type="submit" class="btn btn-default" style="background: #E48F8F;color:#fff" name="enrollb">Visualize</button>
+                        </center>
+                    </div>
+                    <div id="video1d" style="margin-top:100px;height:500px">
+                        <center>
+                              <h3 style="font-family: 'Times New Roman', Times, serif;font-size: 30px;font-weight:bold;"> Choose the Fields </h3>
+                               <label >Year</label>
+                                <select class="form-control" id="video1year">    
+                                 {% for x in year %}
+                                    <option value={{forloop.counter0}}>{{x}}</option>
+                                  {% endfor %}  
+                              </select>
+                              <br>
+                              <label>Course </label>  
+                                <select class="form-control" id="video1course" name="video1course">
+                                    {% for x,y in course %}
+                                    <option value={{x}}>{{x }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            <script>
+                                $("#video1year").change(function() { 
+                                    if($(this).data('options') == undefined){
+                                /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                                        $(this).data('options',$('#query option').clone());
+                                    } 
+                                    var id = $(this).val();
+                                    var options = $(this).data('options').filter('[value=' + id + ']');
+                                    $('#video1course').html(options);
+                                });
+                            </script>
+                            <br>    
+                              <label >Choose Query</label>
+                              <select name="video1q" class="form-control">
+                                    {% for x in vid1q %}
+                                    <option value={{forloop.counter0}}>{{x}}</option>
+                                    {% endfor %}  
+                              </select><br>
+                              <button type="submit" class="btn btn-default" style="background: #E48F8F;color:#fff" name="video1b">Visualize</button>
+                        </center>
+                    </div>
+                    <div id="problemd" style="display:none;margin-top:100px;height:500px">
+                        <center>
+                            <h3 style="font-family: 'Times New Roman', Times, serif;font-size: 30px;font-weight:bold;"> Choose the Fields </h3>
+                            <label >Year</label>
+                                <select class="form-control" id="problemyear">    
+                                 {% for x in year %}
+                                    <option value={{forloop.counter0}}>{{x}}</option>
+                                  {% endfor %}  
+                              </select>
+                              <br>
+                              <label>Course </label>  
+                                <select class="form-control" id="problemcourse" name="problemcourse">
+                                    {% for x,y in course %}
+                                    <option value={{x}}>{{x }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            <script>
+                                $("#problemyear").change(function() { 
+                                    if($(this).data('options') == undefined){
+                                /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                                      $(this).data('options',$('#query option').clone());
+                                    } 
+                                    var id = $(this).val();
+                                    var options = $(this).data('options').filter('[value=' + id + ']');
+                                    $('#problemcourse').html(options);
+                                });
+                            </script>
+                            <br>    
+                              <label >Choose Query</label>
+                              <select name="problemq" class="form-control">
+                                    {% for x in probq %}
+                                    <option value={{forloop.counter0}}>{{x}}</option>
+                                    {% endfor %}  
+                              </select><br>
+                              <button type="submit" class="btn btn-default" style="background: #E48F8F;color:#fff" name="problemb">Visualize</button>
+                        </center>
+                    </div>
+                    <div id="videod" style="display:none;margin-top:100px;height:500px">
+                        <center>
+                            <h3 style="font-family: 'Times New Roman', Times, serif;font-size: 30px;font-weight:bold;"> Choose the Fields </h3>
+                            <label >Year</label>
+                            <select class="form-control" id="videoyear">
+                                 {% for x in year %}
+                                    <option>{{x}}</option>
+                                  {% endfor %}  
+                            </select>
+                            <br>
+                            <label>Course </label>  
+                            <select class="form-control" id="videocourse" name="videocourse">
+                                {% for x,y in course %}
+                                <option value={{x}}>{{x }}</option>
+                                {% endfor %}
+                            </select>
+
+                        <script>
+                           $("#videoyear").change(function() { 
+                               if($(this).data('options') == undefined){
+                                    /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                                    $(this).data('options',$('#query option').clone());
+                                } 
+                                var id = $(this).val();
+                                var options = $(this).data('options').filter('[value=' + id + ']');
+                                $('#videocourse').html(options);
+                            });
+                        </script>
+                         <br>   
+                       <label>Choose starting date</label>
+                         <select name="t1d">
+                             {% for i in v1 %}
+                             <option value={{i}}>{{i}}</option>
+                             {% endfor %}
+                         </select>
+                         <select name="t1m">
+                             {% for i in v2 %}
+                             <option value={{i}}>{{i}}</option>
+                             {% endfor %}
+                         </select>
+                         <select name="t1y">
+                             {% for i in v3 %}
+                             <option value={{i}}>{{i}}</option>
+                             {% endfor %}
+                         </select>
+                         <br>
+                         <br>
+                         <label>Choose ending date</label>
+                         <select name="t2d">
+                             {% for i in v1 %}
+                             <option value={{i}}>{{i}}</option>
+                             {% endfor %}
+                         </select>
+                         <select name="t2m">
+                             {% for i in v2 %}
+                             <option value={{i}}>{{i}}</option>
+                             {% endfor %}
+                         </select>
+                         <select name="t2y">
+                             {% for i in v3 %}
+                             <option value={{i}}>{{i}}</option>
+                             {% endfor %}
+                         </select><br><br>
+                         <label >Choose Query</label>
+                            <select name="videoq" class="form-control">
+                                {% for x in vidq %}
+                                    <option value={{forloop.counter0}}>{{x}}</option>
+                                {% endfor %}  
+                                 
+                            </select><br>
+                            <button type="submit" class="btn btn-default" style="background: #E48F8F;color:#fff" name="videob">Visualize</button>
+                        </center>
+                    </div>
+                </center>
+              </form>
+            </div>
+          </div>
+          </center>
+        </div>
+        <span></span>
+        
+        <br>
+        </div>
+    </div>
+  </div>
+ </div>
+        
+        <!--GRID VIEW-->
+<div class=" navbar navbar-inverse navbar-fixed-bottom" id="accordion">
+  <div class=""><!--panel panel-default-->
+    <div class="panel-heading" style="background-color:white">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" >
+         <i class="glyphicon glyphicon-eject"></i>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse navbar-inverse">
+      <div class="panel-body">
+       <div class="row container navbar-collapse collapse" >
+
+             <div style="margin-left:15px">
+              <div class="col-md-1" style="background-color:white"><center>
+                <h5 ><b>Home</b></h5>
+                   <a href="/page1/">
+                    <button class="btn btn-info btn-lg" style="margin-bottom:10px" ><i class="glyphicon glyphicon-home"></i></button><br>
+                   </a>
+              </div>
+             </div>
+            <div style="margin-right:0px;margin-bottom:1px">
+                            <div class="col-md-1" style="float:right;">
+                                <h5 style="color:white"><b>Enrollment Analytics</b></h5>
+                                <a href="#">
+                                 <button type="button" class="btn btn-info btn-lg"  id="enrolla"  name="enrolla"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </a>
+                            </div>
+                            <div class="col-md-1" style="float:right">
+                                <h5 style="color:white"><b>Course Analytics</b></h5>
+                                <a href="#">
+                                  <button class="btn btn-info btn-lg" id="coursea" name="coursea"><i class="glyphicon glyphicon-book"></i></button>
+                                </a>
+                            </div>
+                            <div class="col-md-1" style="float:right">
+                                <h5 style="color:white"><b>Problem Analytics</b></h5>
+                                <a href="#">
+                                  <button  class="btn btn-info btn-lg" id="problema" name="problema"><i class="glyphicon glyphicon-pencil"></i></button>
+                                </a>
+
+                            </div>
+                            <div class="col-md-1" style="float:right">
+                                <h5 style="color:white"><b>Student Analytics</b></h5>
+                                <a href="#">
+                                     <button type="button" class="btn btn-info btn-lg" id="studenta" name="studenta"><i class="glyphicon glyphicon-user"></i></button>
+                                </a>
+                            </div>
+                            <div class="col-md-1" style="float:right">
+                                <h5 style="color:white"><b>Video&nbsp; Analytics</b></h5>
+                                <a href="#">
+                                     <button type="button" class="btn btn-info btn-lg" id="video1a" name="video1a"><span class="glyphicon glyphicon-play-circle"></span></button>
+                                </a>
+                            </div>
+                            <div class="col-md-1" style="float:right">
+                                <h5 style="color:white"><b>Basic&nbsp; Statistics</b></h5>
+                                <a href="/stdenrolled/">
+                                     <button class="btn btn-info btn-lg" id="basicstats" name="basicstats"><span class="glyphicon glyphicon-list"></span></button>
+                                </a>
+                            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</div>
+        <script>
+            $(document).ready(function(){
+                $("#studenta").click(function(){
+                    $("#studentd").show();
+                    $("#problemd").hide();
+                    $("#enrolld").hide();
+                    $("#videod").hide();
+                    $("#resetd").hide();
+                    $('#htm').hide();
+                    $("#video1d").hide();
+                });
+                $("#problema").click(function(){
+                    $("#problemd").show();
+                    $("#enrolld").hide();
+                    $("#videod").hide();
+                    $("#studentd").hide();
+                    $("#resetd").hide();
+                     $('#htm').hide();
+                     $("#video1d").hide();
+                });
+                $("#coursea").click(function(){
+                    $("#videod").show();
+                    $("#studentd").hide();
+                    $("#problemd").hide();
+                    $("#enrolld").hide();
+                    $("#resetd").hide();
+                     $('#htm').hide();
+                     $("#video1d").hide();
+                });
+                $("#enrolla").click(function(){
+                    $("#videod").hide();
+                    $("#studentd").hide();
+                    $("#problemd").hide();
+                    $("#enrolld").show();
+                    $("#resetd").hide();
+                     $("#video1d").hide();
+                });
+                $("#video1a").click(function(){
+                    $("#videod").hide();
+                    $("#studentd").hide();
+                    $("#problemd").hide();
+                    $("#videod").hide();
+                    $("#resetd").hide();
+                     $('#htm').hide();
+                    $("#video1d").show();
+                });
+                $("#reset").click(function(){
+                    $("#videod").hide();
+                    $("#studentd").hide();
+                    $("#problemd").hide();
+                    $("#enrolld").hide();
+                    $("#resetd").show();
+                     $('#htm').hide();
+                     $("#video1d").hide();
+                });
+            });
+        </script>
+ 
+  </body>
+    
+</html>

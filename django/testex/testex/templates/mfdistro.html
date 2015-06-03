@@ -1,0 +1,20 @@
+<div id="chartContainer">
+{% load staticfiles %}
+  <script src="{% static 'js/d3.min.js' %}"></script>
+  <script src="{% static 'js/dimple.min.js' %}"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 700, 700);
+    d3.tsv("{% static 'mfr.csv' %}", function (data) {
+      data = dimple.filterData(data, "gender", ["m", "f"])
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 500, 330);
+      var x = myChart.addCategoryAxis("x", ["gender", "c_id"]);
+      x.addGroupOrderRule("c_id");
+      myChart.addMeasureAxis("y", "_c2");
+      var s = myChart.addSeries("gender", dimple.plot.line);
+      s.interpolation = "step";
+      s.barGap = 0.07;
+      myChart.draw();
+    });
+  </script>
+</div>

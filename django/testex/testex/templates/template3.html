@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>Highcharts Example</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+						
+	</head>
+	<body>
+		<div id="container" style="width: 800px; height: 400px; margin: 0 auto">
+		</div>
+		<script type="text/javascript">
+		{% autoescape off %}
+		$(document).ready(function() {
+    var chart1 = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container',
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
+
+		{% endautoescape %}
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EDX DATA INTERACTION</title>
+{% load staticfiles %}
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" charset="utf-8">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <a href="#" class="navbar-brand">DATA ANALYTICS</a>
+                
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--List in the collapsable/dropdown bar-->
+                <div class="collapse navbar-collapse navHeaderCollapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ><a href="/page1/">Home</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+            </div>
+         </div> 
+
+	 <div class="container" id="head1">
+            <center>
+              <div class="jumbotron" style="width:800px" >
+                <form role="form" method="post" action="/visual/stdenrolled">
+		{% csrf_token %}
+		<label>Enter the course name</label>
+		<select class="form-control" id="c" name="c">
+        		{% for x,y in courses %}
+                            <option value={{x}}>{{x }}</option>
+		         {% endfor %}
+      		</select>
+		<br>
+		<button type="submit" name="std_table" class="btn btn-default" style="background: #E48F8F;color:#fff">Submit</button>
+		</form>
+	      </div>
+	    </center>
+	</div>	
+{% ifequal x "0" %}
+<center>	
+<a href="#">
+               <button type="button" class="btn btn-info btn-lg" id="open">Open</button>
+</a>
+<div id="show">
+  <table class="table" >
+    <tr>
+	<th>		</th>
+	<th>Student name</th>
+	<th>User id</th>
+	<th> Emailid</th>
+   </tr>
+   {% for i,j,k in list_enroll %}
+	<tr>
+	<td>		</td>
+   	<td>{{i}}</td>
+	<td>{{j}}</td>
+	<td>{{k}}</td>
+   	</tr>
+{%  endfor %}		
+  </table>
+</div>
+{% endifequal %}
+
+<script>
+$(document).ready(function(){
+jQuery('#open').live('click', function(event) {        
+         jQuery('#show').toggle('show');
+    });
+});

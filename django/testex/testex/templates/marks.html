@@ -1,0 +1,24 @@
+<div id="chartContainer">
+{% load staticfiles %}
+  <script src="{% static 'js/d3.min.js' %}"></script>
+  <script src="{% static 'js/dimple.min.js' %}"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 590, 700);
+    d3.tsv("{% static 'marks.tsv' %}", function (data) {
+     // data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 80, 530, 350);
+      //setbounds(left margin,top margin,width,height)
+      var x = myChart.addCategoryAxis("x", "marks");
+     // x.titleShape.text("Age");
+      x.addOrderRule("marks");
+      
+      myChart.addMeasureAxis("y", "username");
+        myChart.addMeasureAxis("z", "username");
+        myChart.addSeries(null, dimple.plot.bubble);
+      myChart.draw();
+    });
+    
+  </script>
+</div>
+

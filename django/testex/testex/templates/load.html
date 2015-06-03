@@ -1,0 +1,105 @@
+<html>
+<head>
+
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" charset="utf-8">
+	{% load staticfiles %}
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+        
+      
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <a href="#" class="navbar-brand">Data Loader</a>
+                
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--List in the collapsable/dropdown bar-->
+                <div class="collapse navbar-collapse navHeaderCollapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="/page1/">Home</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+ 	
+ </div>
+  
+  		<div class="container basic-grey" style="width:50%">
+            <div class="jumbotron" class="col-md-1">
+  			<!--<form>
+  				<label >data package:</label>
+  				<select class="basic-grey">
+  					<option>edx data package</option>
+  					<option>local data</option>
+  				</select>
+  				<label>path to data directory</label>
+  				<input type="text" name="path" >
+  				<label >upload/update:</label>
+  				<select class="basic-grey">
+  					<option>upload</option>
+  					<option>update</option>
+  				</select>	
+
+	  			</form>
+	  		-->
+	  		<form role="form" action="/automater/r/">
+
+			  	<div class="form-group">
+				   <label >Data Package</label>
+				   
+								
+				<script type="text/javascript">
+				    function showText(){
+				       var value = document.getElementById('options').value;
+				       if(value != "amazonserver"){
+				         document.getElementById('show').style.display = "block";
+				       }
+				       else{
+				       	 document.getElementById('show').style.display = "none";	
+				       }
+				    }
+				</script>
+				    <select class="form-control" id="options" onchange="showText()" name="server"> 
+				        <option value="amazonserver" selected="selected">EdX data package</option>
+				        <option value="local">Local data</option>
+				    </select>
+				<div id="show" style="display:none;"><br>
+						<label id="show">Username:    </label>
+						<input type="text" id="show" name="username" size="8"class="form-control" placeholder="mysql username"/><br> 	
+						<label id="show">Password:    </label>
+						<input type="password" name="password"size="8" class="form-control" placeholder="mysql password" id="show"/> 
+				</div>
+
+				<br>	
+
+
+				<div class="form-group">
+				    <label>Path to directory</label>
+				    <input type="text" class="form-control" id="path" placeholder="Directory Path" name="path">
+				</div>
+				<div class="form-group">
+				    <label>Upload/Update</label>
+				    <select class="form-control" name="mode" id="mode">
+				   		<option id="upload" value="upload">Upload</option>
+				   		<option id="update" value="update">Update</option>
+				   		<option id="reset HDFS" value="reset">reset HDFS</option>
+				   </select>
+				</div>
+				<button type="submit" class="btn btn-default" style="background: #E48F8F;color:#fff">Submit</button>
+				<button type="reset" class="btn btn-default" style="background: #E48F8F;color: #fff">Reset</button>
+			</form>
+
+			</div>
+
+    	</div>	
+ 	
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div id="chartContainer">
+{% load staticfiles %}
+  <script src="{% static 'js/d3.min.js' %}"></script>
+  <script src="{% static 'js/dimple.min.js' %}"></script>
+  <script type="text/javascript">
+  var parseDate = d3.time.format("%Y%m%d").parse;
+    var svg = dimple.newSvg("#chartContainer", 630, 400);
+    d3.csv("{% static 'activity.csv' %}", function (data) {
+   //   data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
+  data.forEach(function(d) {
+    d.day = parseDate(d.day);
+    
+  });
+
+ 
+
+   
+   
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 620, 305);
+      var x = myChart.addCategoryAxis("x", "day");
+      x.addOrderRule("day");
+     // x.domain(d3.extent(data, function(d) { return d.day; }));
+      myChart.addMeasureAxis("y", "students");
+      var s = myChart.addSeries(null, dimple.plot.line);
+      myChart.draw();
+    });
+  </script>
+</div>

@@ -1,0 +1,16 @@
+Thu Jun 26 16:09:05 IST 2014 : Apache Derby Network Server - 10.10.1.1 - (1458268) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Thu Jun 26 16:09:52 IST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0146-d7c1-ded9-ffffc3f1b6e2 
+on database directory /home/hduser/django/testex/testex/metastore_db with class loader sun.misc.Launcher$AppClassLoader@6521f956 
+Loaded from file:/usr/local/derby/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_55-b14
+user.dir=/home/hduser/django/testex/testex
+os.name=Linux
+os.arch=amd64
+os.version=3.13.0-29-generic
+derby.system.home=/home/hduser/django/testex/testex
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Jun 26 20:09:24 IST 2014: Shutting down Derby engine

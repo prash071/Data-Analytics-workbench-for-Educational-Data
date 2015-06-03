@@ -1,0 +1,213 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+    <title>Data Visualisation</title>
+<style  type="text/css" >
+
+/* Basic Grey */
+.basic-grey {
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #EEE url(Data-Visualisation.jpg) repeat-y top center ;
+    opacity: .6;
+    padding: 20px 30px 20px 30px;
+    font: 12px Georgia, "Times New Roman", Times, serif;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #DADADA;
+}
+.basic-grey h1 {
+    font: 25px Georgia, "Times New Roman", Times, serif;
+    padding: 0px 0px 10px 40px;
+    display: block;
+    border-bottom: 1px solid #DADADA;
+    margin: -10px -30px 30px -30px;
+    color: #000000;
+}
+.basic-grey h1>span {
+    display: block;
+    font-size: 11px;
+
+    color: #000000;
+}
+.basic-grey label {
+    display: block;
+    margin: 0px 0px 5px;
+    font-weight: bold;
+    color: #000000;
+}
+.basic-grey label>span {
+    float: left;
+    width: 80px;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #000000;
+}
+.basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea,.basic-grey select{
+    border: 1px solid #DADADA;
+    color: #254117 ;
+    height: 24px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 70%;
+    font-weight: bold;
+    font: normal 12px/12px Georgia, "Times New Roman", Times, serif;
+}
+.basic-grey select {
+    background: #FFF url('down-arrow.png') no-repeat right;
+    background: #FFF url('down-arrow.png') no-repeat right);
+    appearance:none;
+    -webkit-appearance:none; 
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    width: 72%;
+    height: 30px;
+}
+.basic-grey textarea{
+    height:100px;
+}
+.basic-grey .button {
+    background: #E48F8F;
+    border: none;
+    margin-top: 10px;
+    float: auto;
+    padding: 10px 25px 10px 25px;
+    color: #FFF;
+}
+.basic-grey .button:hover {
+    background: #CF7A7A
+}
+</style>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+						
+</head>
+<body>
+
+    <form action='' method="get" class="basic-grey">
+    <h1>Upload Data to visualise!
+        <span>Please specify all the fields.</span>
+    </h1>
+   
+   
+	 <select name="upper" id="upper"> 
+         <option value="1" selected="">Student Performance</option>
+	<option value="2">Video Interaction</option>
+	
+	</select>
+	<select name="query" id="query">
+	<option value="1" selected="selected">query 1</option>
+	<option value="1">query 2</option> 
+	<option value="2">query 3</option> 
+	</select>
+<script>
+$("#upper").change(function() { 
+if($(this).data('options') == undefined){
+    /*Taking an array of all options-2 and kind of embedding it on the select1*/
+    $(this).data('options',$('#query option').clone());
+    } 
+var id = $(this).val();
+var options = $(this).data('options').filter('[value=' + id + ']');
+$('#query').html(options);
+});
+</script>
+<script>
+	$("select").change(function() {
+	    if ($(this).val() == '1'){
+		$('.t').show();
+	    } else {
+		$('.t').hide();
+	    }
+	}).change();
+</script>
+    <p> 
+	<label class="t">limit:</label>
+    	<input type="text" class="t" size="8">
+	<input type="button" name="display" id="display" value="show">
+       <!--<span>&nbsp;</span> 
+        <input type="button" class="button" value="Submit" /> 
+         <span>&nbsp;</span> 
+        <input type="button" class="button" value="Reset" /> -->
+    
+    </p>
+    </form>	
+<div id="container" style="width: 70%; height: 300px; margin: 0 auto">
+		</div>
+		<script type="text/javascript">
+		{% autoescape off %}
+	$("#display").click(function() {
+			var options = {
+				chart: {
+					renderTo: 'container',
+					type: 'column'
+				},
+				title: {
+					text: 'DATA'
+				},
+				xAxis: {
+					categories: []
+				},
+				yAxis: {
+					title: {
+						text: 'Units'
+					}
+				},
+				series: []
+			};
+			
+			{% load staticfiles %}
+			$.get('{% static "AirPassengers.csv" %}', function(data) {
+				// Split the lines
+				var lines = data.split('\n');
+				$.each(lines, function(lineNo, line) {
+					var items = line.split(',');
+					
+					// header line containes categories
+					if (lineNo == 0) {
+						$.each(items, function(itemNo, item) {
+							if (itemNo > 0) options.xAxis.categories.push(item);
+						});
+					}
+					
+					// the rest of the lines contain data with their name in the first position
+					else {
+						var series = { 
+							data: []
+						};
+						$.each(items, function(itemNo, item) {
+							if (itemNo == 0) {
+								series.name = item;
+							} else {
+								series.data.push(parseFloat(item));
+							}
+						});
+						
+						options.series.push(series);
+
+					}
+					
+				});
+				
+				var chart = new Highcharts.Chart(options);
+			});
+			
+			
+		});		{% endautoescape %}
+		</script>	
+
+
+</body>
+</html>
